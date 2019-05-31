@@ -61,7 +61,7 @@ public class HomeController {
             userService.saveUser(user);
             model.addAttribute("message","user account created");
         }
-        return"index";
+        return"main";
     }
 
 }

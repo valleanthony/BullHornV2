@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -41,6 +41,11 @@
                     <h5 class="card-title" th:text="${tweet.title}"></h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${tweet.postedBy}"></h6>
                     <p class="card-text" th:text="${tweet.content}"></p>
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/delete/{id}(id=${tweet.id})}">Delete this Tweet</a>
+                        <a th:href="@{/update/{id}(id=${tweet.id})}">Update this Tweet</a>
+                    </div>
+
                     <span th:if="${userId==tweet.getUserId()}">
                     <a th:href="@{/delete/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Delete </button></a>
                     <a th:href="@{/update/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Update </button></a>
