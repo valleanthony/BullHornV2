@@ -1,21 +1,28 @@
 package com.example.springboot_401;
 
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class TweetController {
 
     @Autowired
     TweetRepo tweetRepo;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    CloudnairyConfig cloudc;
 
 
     @RequestMapping("/")
@@ -24,6 +31,15 @@ public class TweetController {
         return "list";
     }
 
+    // To test new index page
+    @RequestMapping("/index2")
+    public String listTweetTwo(Model model){
+        model.addAttribute("tweets",tweetRepo.findAll());
+        model.addAttribute("userId",userService.getCurrentUser().getId());
+        return "index2";
+    }
+
+
 
     @GetMapping("/add")
     public String tweetForm(Model model){
@@ -31,14 +47,7 @@ public class TweetController {
         return "form";
     }
 
-    @PostMapping("/process")
-    public String processForm(@Valid Tweet tweet, BindingResult result){
-        if (result.hasErrors()){
-            return "form";
-        }
-        tweetRepo.save(tweet);
-        return "redirect:/";
-    }
+
 
     @RequestMapping("/detail/{id}")
     public String showTweet(@PathVariable("id") long id, Model model){
@@ -55,6 +64,25 @@ public class TweetController {
     @RequestMapping("/delete/{id}")
     public String delTweet(@PathVariable("id") long id){
         tweetRepo.deleteById(id);
+        return "redirect:/";
+    }
+
+    @PostMapping("/processtweet") // <-- not sure if i need this part
+    public String processCarForm(@ModelAttribute Tweet tweet, @RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "redirect:/";
+        }
+        try {
+            Map uploadResult = cloudc.upload(file.getBytes(),
+                    ObjectUtils.asMap("resourcetype", "auto"));
+
+            tweet.setPicture(uploadResult.get("url").toString());
+            tweet.setUserId(userService.getCurrentUser().getId());
+            tweetRepo.save(tweet);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/";
+        }
         return "redirect:/";
     }
 

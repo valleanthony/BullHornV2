@@ -3,10 +3,18 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <Style>
+        img{
+            max-height: 286px;
+            max-width: 180px;
+            width: auto;}
+    </Style>
+
     <meta charset="UTF-8">
-    <title> BullHorn- Make a tweet</title>
+    <title>BullHorn -Home</title>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Brand/logo -->
     <a class="navbar-brand" href="/">BullHorn</a>
@@ -21,40 +29,29 @@
         </li>
     </ul>
 </nav>
+
+
 <div class="container" style="margin-top:30px">
     <div class="row">
         <div class="col-sm-12">
-            <form enctype="multipart/form-data" action="/processtweet" th:object="${tweet}" method="post">
-
-                <input type="hidden" th:field="*{id}"/></br>
-
-                Title: <input type="text" th:field="*{title}"/>
-                <span th:if = "${#fields.hasErrors('title')}" th:errors="*{title}"></span></br>
-
-                Name: <input type="text" th:field="*{postedBy}"/>
-                <span th:if = "${#fields.hasErrors('postedBy')}" th:errors="*{postedBy}"></span></br>
-
-                Tweet: <textarea rows="3" th:field="*{content}"/>
-                <span th:if = "${#fields.hasErrors('content')}" th:errors="*{content}"></span></br>
-
-                Date: <input type="text" th:field="*{postedDate}"/>
-                <span th:if = "${#fields.hasErrors('postedDate')}" th:errors="*{postedDate}"></span></br>
-
-                <input type="file" name="file"/><br/><br/>
+            <div class="card" th:each ="tweet :${tweets}" style="width: 18rem;">
+                <img class="card-img-top" th:src="${tweet.picture}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${tweet.title}"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${tweet.postedBy}"></h6>
+                    <p class="card-text" th:text="${tweet.content}"></p>
+                    <span th:if="${userId==tweet.getUserId()}">
+                    <a th:href="@{/delete/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Delete </button></a>
+                    <a th:href="@{/update/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Update </button></a>
+                    </span>
 
 
+                </div>
+            </div>
 
-
-
-
-                <input type="submit" value="submit"/>
-
-
-             </form>
         </div>
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -15,15 +15,26 @@ public class Tweet {
     private String content;
     private String postedBy;
     private String postedDate;
+    private String picture;
+    private long userId;
 
     public Tweet() {
     }
 
-    public Tweet(String title, String content, String postedBy, String postedDate) {
-        this.title = title;
-        this.content = content;
-        this.postedBy = postedBy;
-        this.postedDate = postedDate;
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public long getId() {
