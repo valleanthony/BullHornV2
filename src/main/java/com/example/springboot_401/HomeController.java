@@ -1,5 +1,6 @@
 package com.example.springboot_401;
 
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -28,14 +29,17 @@ public class HomeController {
     }
 
     @RequestMapping("/secure")
-    public String securePage(Principal principal, Model model){
+    public String securePage(Principal principal, Model model, User user){
         User myuser = ((CustomUserDetails)((UsernamePasswordAuthenticationToken) principal).getPrincipal()).getUser();
         model.addAttribute("myuser",myuser);
+        model.addAttribute("user", userService.getCurrentUser());
+
         return  "secure";
     }
 
     @RequestMapping("/admin")
-    public String admin(){
+    public String admin(Model model){
+        model.addAttribute("user", userService.getCurrentUser());
         return "admin";
     }
 

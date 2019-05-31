@@ -4,11 +4,9 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
 
@@ -25,24 +23,27 @@ public class TweetController {
     CloudnairyConfig cloudc;
 
 
-    @RequestMapping("/")
-    public String listtweet(Model model){
-        model.addAttribute("tweets",tweetRepo.findAll());
-        return "list";
-    }
+//    @RequestMapping("/")
+//    public String listtweet(Model model){
+//        model.addAttribute("user", userService.getCurrentUser());
+//        model.addAttribute("tweets",tweetRepo.findAll());
+//        return "list";
+//    }
 
     // To test new index page
-    @RequestMapping("/index2")
+    @RequestMapping("/")
     public String listTweetTwo(Model model){
+        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tweets",tweetRepo.findAll());
         model.addAttribute("userId",userService.getCurrentUser().getId());
-        return "index2";
+        return "main";
     }
 
 
 
     @GetMapping("/add")
     public String tweetForm(Model model){
+        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tweet",new Tweet());
         return "form";
     }
@@ -51,18 +52,21 @@ public class TweetController {
 
     @RequestMapping("/detail/{id}")
     public String showTweet(@PathVariable("id") long id, Model model){
+        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tweet",tweetRepo.findById(id).get());
         return "mytweet";
     }
 
     @RequestMapping("/update/{id}")
-    public String updateTwee(@PathVariable("id") long id, Model model){
+    public String updateTwee(@PathVariable("id") long id,Model model ){
+        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tweet",tweetRepo.findById(id).get());
         return "form";
     }
 
     @RequestMapping("/delete/{id}")
-    public String delTweet(@PathVariable("id") long id){
+    public String delTweet(@PathVariable("id") long id, Model model){
+        model.addAttribute("user", userService.getCurrentUser());
         tweetRepo.deleteById(id);
         return "redirect:/";
     }

@@ -68,15 +68,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
 
 
-//        auth.inMemoryAuthentication()
-//                .withUser("ant")
-//                .password(passwordEncoder().encode("bean"))
-//                .authorities("ADMIN")
-//                .and()
-//                .withUser("user")
-//                .password(passwordEncoder().encode("password"))
-//                .authorities("USER");
-
 
     }
 

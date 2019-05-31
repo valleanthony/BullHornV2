@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -9,6 +9,12 @@
 <body>
 
 <h1>this is not a secure page</h1>
+<div>Welcome [[${user.firstName}]]!</div>
+
+
+<div sec:authorize="hasAuthority('ADMIN')">
+    Administrators will see this text.
+</div>
 
 <a href="/secure">Secure Page</a>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
