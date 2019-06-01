@@ -1,6 +1,5 @@
 package com.example.springboot_401;
 
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -46,7 +45,7 @@ public class HomeController {
     @RequestMapping(value = "/register", method=RequestMethod.GET)
     public String showRegistration(Model model){
         model.addAttribute("user", new User());
-        return "registration";
+        return "register";
     }
 
 
@@ -55,7 +54,7 @@ public class HomeController {
                                           model){
         model.addAttribute("user", user);
         if (result.hasErrors()){
-            return "registration";
+            return "register";
         }
         else{
             userService.saveUser(user);
