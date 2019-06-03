@@ -45,7 +45,7 @@ public class HomeController {
     @RequestMapping(value = "/register", method=RequestMethod.GET)
     public String showRegistration(Model model){
         model.addAttribute("user", new User());
-        return "register";
+        return "registration";
     }
 
 
@@ -54,7 +54,7 @@ public class HomeController {
                                           model){
         model.addAttribute("user", user);
         if (result.hasErrors()){
-            return "register";
+            return "registration";
         }
         else{
             userService.saveUser(user);
