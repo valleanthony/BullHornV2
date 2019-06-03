@@ -4,9 +4,11 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.Binding;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -44,8 +46,8 @@ public class TweetController {
 
     @GetMapping("/add")
     public String tweetForm(Model model){
-        model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tweet", new Tweet());
+        model.addAttribute("user", userService.getCurrentUser());
         return "form";
     }
 
@@ -74,6 +76,7 @@ public class TweetController {
 
     @PostMapping("/processtweet") // <-- not sure if i need this part
     public String processCarForm(@ModelAttribute Tweet tweet, @RequestParam("file") MultipartFile file) {
+
         if (file.isEmpty()) {
             return "redirect:/";
         }
