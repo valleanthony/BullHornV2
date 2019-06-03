@@ -5,16 +5,16 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <Style>
         img{
-            max-height: 286px;
-            max-width: 180px;
-            width: auto;}
+            max-height: 180px;
+            max-width: 286px;
+            }
     </Style>
 
     <meta charset="UTF-8">
     <title>BullHorn -[[${user.firstName}]]</title>
 </head>
 <body>
-
+<div th:replace="base :: navlinks"></div>
 
 
 
@@ -22,17 +22,20 @@
     <div class="row">
         <div class="col-sm-12">
             <div>Welcome [[${user.firstName}]]!</div>
-            <div class="card" th:each ="tweet :${tweets}" style="width: 18rem;">
-                <img class="card-img-top" th:src="${tweet.picture}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${tweet.title}"></h5>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${tweet.postedBy}"></h6>
-                    <p class="card-text" th:text="${tweet.content}"></p>
-                    <span th:if="${userId==tweet.getUserId()}">
-                    <a th:href="@{/delete/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Delete </button></a>
-                    <a th:href="@{/update/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Update </button></a>
-                    </span>
-
+            <div class="row">
+                <div class="col-lg-6 mb-2 pr-lg-1">
+                    <div class="card" th:each ="tweet :${tweets}" style="width: 18rem;">
+                        <img class="card-img-top" th:src="${tweet.picture}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${tweet.title}"></h5>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="${tweet.postedBy}"></h6>
+                            <p class="card-text" th:text="${tweet.content}"></p>
+                            <span th:if="${userId==tweet.getUserId()}">
+                            <a th:href="@{/delete/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Delete </button></a>
+                            <a th:href="@{/update/{id}(id=${tweet.id})}"><button type="button" class="btn btn-primary">Update </button></a>
+                            </span>
+                        </div>
+                    </div>
 
                 </div>
             </div>

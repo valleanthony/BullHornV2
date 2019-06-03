@@ -18,6 +18,9 @@ public class Tweet {
     private String picture;
     private long userId;
 
+
+
+
     public Tweet() {
     }
 

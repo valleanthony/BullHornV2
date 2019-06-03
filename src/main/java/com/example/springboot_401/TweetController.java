@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -90,7 +91,19 @@ public class TweetController {
         return "redirect:/";
     }
 
+@RequestMapping("/mypost")// <-- Call back all posts made by user.
+    public String profilePage(Model model){
+    long creatorID= userService.getCurrentUser().getId();
+    ArrayList<Tweet> results =(ArrayList<Tweet>)
+            tweetRepo.findByUserId(creatorID);
 
+
+        model.addAttribute("user", userService.getCurrentUser());
+        model.addAttribute("results",results);
+
+
+        return "mypost";
+}
 
 
 

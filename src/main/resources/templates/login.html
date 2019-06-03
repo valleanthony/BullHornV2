@@ -15,19 +15,25 @@
 <body>
 
 <div th:replace="base :: navNoAuth"></div>
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-12">
 
-<div th:if="${param.error}">
-    Invalid username or password
-</div>
-<div th:if="${param.loggout}">
-    you have been logged out
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label>Username: <input type="text" name="username"/></label></div>
-    <div><label>Password: <input type="password" name="password"/></label></div>
-    <div><label><input type="submit" value="Sign in"/></label></div>
+            <div th:if="${param.error}">
+                Invalid username or password
+            </div>
+            <div th:if="${param.loggout}">
+                you have been logged out
+            </div>
+                <form th:action="@{/login}" method="post">
+                <div><label>Username: <input type="text" name="username"/></label></div>
+                <div><label>Password: <input type="password" name="password"/></label></div>
+                <div><label><input type="submit" value="Sign in"/></label></div>
 
-</form>
+                 </form>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
