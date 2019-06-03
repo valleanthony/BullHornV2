@@ -37,9 +37,10 @@ public class UserService {
     }
 
     public void saveUser(User user) {
+
         user.setRoles(Arrays.asList(roleRepo.findByRole("USER")));
         user.setEnabled(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword())); // commenting it out fixed
         userRepo.save(user);
     }
 

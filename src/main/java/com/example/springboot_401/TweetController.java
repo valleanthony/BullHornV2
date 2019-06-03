@@ -45,7 +45,7 @@ public class TweetController {
     @GetMapping("/add")
     public String tweetForm(Model model){
         model.addAttribute("user", userService.getCurrentUser());
-        model.addAttribute("tweet",new Tweet());
+        model.addAttribute("tweet", new Tweet());
         return "form";
     }
 
