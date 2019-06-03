@@ -14,8 +14,6 @@
         <div class="col-sm-12">
             <form enctype="multipart/form-data" action="/processtweet" th:object="${tweet}" method="post">
 
-                <input type="hidden" th:field="*{id}"/></br>
-
                 Title: <input type="text" th:field="*{title}"/>
                 <span th:if = "${#fields.hasErrors('title')}" th:errors="*{title}"></span></br>
 
@@ -30,14 +28,7 @@
 
                 <input type="file" name="file"/><br/><br/>
 
-
-
-
-
-
-                <input type="submit" value="submit"/>
-
-
+                <input type="submit" value="submit"/><br/>
              </form>
         </div>
     </div>
